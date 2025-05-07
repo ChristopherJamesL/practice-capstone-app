@@ -3,7 +3,6 @@ import FormInput from '../form-input/form-input.component';
 import Button from '../button/button.component';
 import { defaultFormFields } from '../sign-up-form/sign-up-form.component';
 import { 
-    auth, 
     signInAuthUserWithEmailAndPassword,
     createUserDocumentFromAuth,
     signInWithGooglePopup
@@ -20,16 +19,14 @@ const SignInForm = () => {
     }
 
     const signInWithGoogle = async () => {
-        const { user } = await signInWithGooglePopup();
-        await createUserDocumentFromAuth(user);
+        await signInWithGooglePopup();
     }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
         try {
-            const result = await signInAuthUserWithEmailAndPassword(email, password);
-            console.log('success', result);
+            const { user } = await signInAuthUserWithEmailAndPassword(email, password);
+            console.log('success', user);
             setFormFields(defaultFormFields);
         } catch (error) {
             switch (error.code) {
@@ -43,8 +40,6 @@ const SignInForm = () => {
                     console.log('error', error)
             }
         }
-        
-
     }
 
     return (
