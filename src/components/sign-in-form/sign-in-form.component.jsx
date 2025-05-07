@@ -4,7 +4,6 @@ import Button from '../button/button.component';
 import { defaultFormFields } from '../sign-up-form/sign-up-form.component';
 import { 
     signInAuthUserWithEmailAndPassword,
-    createUserDocumentFromAuth,
     signInWithGooglePopup
 } from '../../utils/firebase/firebase.utils';
 import './sign-in-form.styles.scss';
