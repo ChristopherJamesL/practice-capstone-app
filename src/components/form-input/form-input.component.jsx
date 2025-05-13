@@ -4,14 +4,14 @@ import {
     FormInputLabel
 } from "./form-input.styles";
 
-const FormInput = ({ label, value, ...otherProps }) => {
-    const shouldShrink = Boolean(value && value.length);
+const FormInput = ({ label, ...otherProps }) => {
+    
 
     return (
         <GroupContainer >
             <FormInputField {...otherProps} />
             {label && (
-                <FormInputLabel shrink={shouldShrink} >
+                <FormInputLabel $shrink={otherProps.value.length} >
                     {label}
                 </FormInputLabel>
             )}

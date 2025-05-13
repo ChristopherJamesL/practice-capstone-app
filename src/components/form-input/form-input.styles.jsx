@@ -6,12 +6,16 @@ const mainColor = 'black';
 const shrinkLabel = css`
     top: -14px; 
     font-size: 12px; 
-    color: ${subColor}; 
+    color: ${mainColor}; 
 `;
 
 export const GroupContainer = styled.div`
     position: relative; 
     margin: 45px 0; 
+
+    input[type='password'] { 
+    letter-spacing: 0.3em; 
+    }
 `;
 
 export const FormInputLabel = styled.label`
@@ -22,10 +26,8 @@ export const FormInputLabel = styled.label`
     pointer-events: none; 
     left: 5px; 
     top: 10px; 
-    transition: 300ms ease all; 
-        
-    ${({ shrink }) => shrink && shrinkLabel} 
-
+    transition: 300ms ease all;     
+    ${({ $shrink }) => $shrink && shrinkLabel} 
 `;
 
 export const FormInputField = styled.input`
@@ -49,9 +51,5 @@ export const FormInputField = styled.input`
     &:focus ~ ${FormInputLabel} { 
         ${shrinkLabel} 
     } 
-    
-    &[type='password'] { 
-    letter-spacing: 0.3em; 
-    }
 `;
 

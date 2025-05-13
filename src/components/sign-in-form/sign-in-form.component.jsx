@@ -1,12 +1,18 @@
 import { useState } from 'react';
 import FormInput from '../form-input/form-input.component';
-import Button from '../button/button.component';
-import { defaultFormFields } from '../sign-up-form/sign-up-form.component';
+import Button, { BUTTON_TYPE_CLASSES } from '../button/button.component';
 import { 
     signInAuthUserWithEmailAndPassword,
     signInWithGooglePopup
 } from '../../utils/firebase/firebase.utils';
-import './sign-in-form.styles.scss';
+import { SignInContainer, SignInTitle, ButtonsContainer } from './sign-in-form.styles';
+
+export const defaultFormFields = {
+    displayName: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+}
 
 const SignInForm = () => {
     const [formFields, setFormFields] = useState(defaultFormFields);
@@ -24,9 +30,7 @@ const SignInForm = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const { user } = await signInAuthUserWithEmailAndPassword(email, password);
-            console.log('success', user);
-            setFormFields(defaultFormFields);
+            await signInAuthUserWithEmailAndPassword(email, password);
         } catch (error) {
             switch (error.code) {
                 case "auth/invalid-credential":
@@ -38,12 +42,14 @@ const SignInForm = () => {
                 default:
                     console.log('error', error)
             }
+        } finally {
+            setFormFields(defaultFormFields);
         }
     }
 
     return (
-        <div className='sign-in-container'>
-            <h2>Already Have An Account?</h2>
+        <SignInContainer>
+            <SignInTitle>Already Have An Account?</SignInTitle>
             <span>Sign In With Email And Password Or Google</span>
             <form onSubmit={handleSubmit} >
                 <FormInput 
@@ -62,12 +68,17 @@ const SignInForm = () => {
                     value={password}
                     onChange={handleChange}
                 />
-                <div className='buttons-container'>
+                <ButtonsContainer>
                     <Button type="submit" >SIGN IN</Button>
-                    <Button  onClick={signInWithGoogle} buttonType='google' >GOOGLE SIN IN</Button>
-                </div>
+                    <Button  
+                        onClick={signInWithGoogle} 
+                        buttonType={BUTTON_TYPE_CLASSES.google} 
+                    >
+                        GOOGLE SIN IN
+                    </Button>
+                </ButtonsContainer>
             </form>
-        </div>
+        </SignInContainer>
     )
 }
 

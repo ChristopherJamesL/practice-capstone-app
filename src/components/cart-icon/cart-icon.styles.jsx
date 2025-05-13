@@ -22,14 +22,3 @@ export const ItemCount = styled.span`
     font-weight: bold; 
     bottom: 12px; 
 `;
-
-// .cart-icon-container { 
-
-    
-//     .item-count { 
-//         position: absolute; 
-//         font-size: 10px; 
-//         font-weight: bold; 
-//         bottom: 12px; 
-//     } 
-// } 
